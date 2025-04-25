@@ -2,8 +2,6 @@ package com.lapoushko.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,19 +13,18 @@ import com.lapoushko.ui.theme.Typography
 /**
  * @author Lapoushko
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Title(textAlign: TextAlign, text: String){
-    LargeTopAppBar(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-        title = {
-            Text(text = text, textAlign = textAlign, style = Typography.titleSmall)
-        }
+fun Title(textAlign: TextAlign, text: String, modifier: Modifier = Modifier) {
+    Text(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 100.dp),
+        text = text, textAlign = textAlign, style = Typography.titleSmall,
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun TitlePreview(){
+private fun TitlePreview() {
     Title(textAlign = TextAlign.Center, text = "Тысячи курсов в одном месте")
 }
