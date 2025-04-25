@@ -55,6 +55,7 @@ dependencies {
     implementation(project(":navigation"))
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:auth"))
+    implementation(project(":feature:main"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
