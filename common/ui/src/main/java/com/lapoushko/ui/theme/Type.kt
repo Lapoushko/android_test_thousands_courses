@@ -21,6 +21,11 @@ val Typography = Typography(
         fontSize = 14.sp,
         color = White
     ),
+    bodySmall = TextStyle(
+        fontFamily = fontFamily,
+        fontSize = 12.sp,
+        color = White
+    ),
     labelLarge = TextStyle(
         fontFamily = fontFamily,
         fontSize = 14.sp,
