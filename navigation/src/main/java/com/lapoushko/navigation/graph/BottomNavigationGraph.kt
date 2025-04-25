@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.lapoushko.auth.AuthScreen
 import com.lapoushko.navigation.model.Screen
 import com.lapoushko.onboarding.OnboardingScreen
 
@@ -19,7 +20,20 @@ fun BottomNavigationGraph(navController: NavHostController) {
         startDestination = Screen.Onboarding
     ) {
         composable<Screen.Onboarding> {
-            OnboardingScreen()
+            OnboardingScreen(
+                onClick = {
+                    navController.navigate(
+                        Screen.Authorization
+                    )
+                }
+            )
+        }
+        composable<Screen.Authorization> {
+            AuthScreen(
+                onClick = {
+                    println("YESS")
+                }
+            )
         }
     }
 }

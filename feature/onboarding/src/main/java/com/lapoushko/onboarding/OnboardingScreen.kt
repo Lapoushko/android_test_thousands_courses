@@ -38,6 +38,8 @@ import com.lapoushko.ui.theme.Green
 import com.lapoushko.ui.theme.LightGray
 import com.lapoushko.ui.theme.Typography
 import com.lapoushko.ui.theme.White
+import com.lapoushko.ui.theme.horizontalPadding
+import com.lapoushko.ui.theme.verticalArrangement
 import org.koin.androidx.compose.koinViewModel
 import kotlin.random.Random
 
@@ -46,16 +48,17 @@ import kotlin.random.Random
  */
 @Composable
 fun OnboardingScreen(
-    viewModel: OnboardingScreenViewModel = koinViewModel()
+    viewModel: OnboardingScreenViewModel = koinViewModel(),
+    onClick: () -> Unit
 ) {
     val state = viewModel.state
 
-    Column(modifier = Modifier.padding(horizontal = 16.dp).fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
-        Column(verticalArrangement = Arrangement.spacedBy(32.dp)) {
-            Title(textAlign = TextAlign.Center, text = "Тысячи курсов в одном месте")
+    Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
+        Column(verticalArrangement = Arrangement.spacedBy(verticalArrangement)) {
+            Title(textAlign = TextAlign.Center, text = "Тысячи курсов в одном месте", modifier = Modifier.padding(horizontal = horizontalPadding))
             LazyListItems(state.items)
         }
-        NextButton(onClick = {}, title = "Продолжить", modifier = Modifier.padding(vertical = 32.dp))
+        NextButton(onClick = onClick, title = "Продолжить", modifier = Modifier.padding(vertical = 32.dp, horizontal = horizontalPadding))
     }
 }
 
@@ -185,5 +188,5 @@ private fun ItemButton(text: String, onClick: (Boolean) -> Unit, isActive: Boole
 @Preview(showBackground = true)
 @Composable
 private fun OnboardingScreenPreview() {
-    OnboardingScreen()
+    OnboardingScreen(onClick = {})
 }
