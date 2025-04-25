@@ -9,10 +9,3 @@ val Green = Color(0xFF12B956)
 val DarkGray = Color(0xFF24252A)
 val LightGray = Color(0xFF32333A)
 val Stroke = Color(0xFF4D555E)
-
-val LightGrayGradient = Brush.verticalGradient(
-    colors = listOf(
-        LightGray.copy(alpha = 0.7f),
-        LightGray.copy(alpha = 0.0f)
-    )
-)
