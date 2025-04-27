@@ -304,29 +304,6 @@ private fun ChipBlurContent(
     }
 }
 
-@Composable
-private fun CircleBlurContent(
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit,
-) {
-    Box(
-        modifier = modifier
-            .padding(6.dp)
-            .height(28.dp)
-            .clip(CircleShape)
-            .background(
-                LightGray.copy(alpha = 0.4f)
-            ),
-        contentAlignment = Alignment.Center
-    ) {
-        Box(
-            contentAlignment = Alignment.Center
-        ) {
-            content()
-        }
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun CourseItemCardPreview() {
