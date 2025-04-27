@@ -27,6 +27,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.lapoushko.extension.toCustomString
+import com.lapoushko.extension.toDate
 import com.lapoushko.feature.screen.CourseItemCard
 import com.lapoushko.ui.theme.Green
 import com.lapoushko.ui.theme.LightGray
@@ -54,10 +56,16 @@ fun MainScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         CustomSearchBar()
-        SortButton(onSort = {})
-        LazyColumn {
+        SortButton(onSort = { viewModel.sort() })
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
             items(state.initialCourses) { course ->
-                CourseItemCard(course) {
+                CourseItemCard(
+                    course.copy(
+                        publishDate = course.publishDate.toDate().toCustomString()
+                    )
+                ) {
                     onToDetail(it)
                 }
             }

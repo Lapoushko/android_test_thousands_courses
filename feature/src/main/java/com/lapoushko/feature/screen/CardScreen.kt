@@ -21,9 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.graphics.Color.Companion.Green
-import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
@@ -34,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.lapoushko.feature.R
 import com.lapoushko.feature.model.CourseItem
+import com.lapoushko.ui.theme.DarkGray
 import com.lapoushko.ui.theme.PlaceholderInputColor
 import com.lapoushko.ui.theme.Typography
 import com.lapoushko.ui.theme.horizontalPadding
@@ -47,7 +46,7 @@ import com.lapoushko.ui.theme.horizontalPadding
 @Composable
 fun CourseItemCard(
     course: CourseItem,
-    onToDetail: (Long) -> Unit
+    onToDetail: (Long) -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -88,7 +87,7 @@ private fun ImageCard(
                 .padding(16.dp)
                 .size(32.dp)
                 .clip(CircleShape)
-                .background(LightGray.copy(alpha = 0.4f))
+                .background(DarkGray.copy(alpha = 0.4f))
                 .align(Alignment.TopEnd),
         ) {
             Icon(
@@ -122,7 +121,7 @@ private fun ImageCard(
                 }
             )
             ChipBlurContent(content = {
-                Text(text = course.startDate, style = Typography.bodySmall, color = White)
+                Text(text = course.publishDate, style = Typography.bodySmall, color = White)
             }
             )
         }
@@ -150,7 +149,7 @@ private fun TextCard(course: CourseItem) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = course.price, style = Typography.titleMedium, color = White)
+                Text(text = "${course.price} ₽", style = Typography.titleMedium, color = White)
                 Row {
                     Text(
                         text = "Подробнее ",
@@ -180,7 +179,7 @@ private fun ChipBlurContent(
             .height(22.dp)
             .clip(shape)
             .background(
-                LightGray.copy(alpha = 0.4f)
+                DarkGray.copy(alpha = 0.4f)
             ),
         contentAlignment = Alignment.Center
     ) {
@@ -205,7 +204,7 @@ private fun CourseItemCardPreview() {
             rate = "4.9",
             startDate = "2024-05-22",
             hasLike = false,
-            publishDate = "2024-02-02",
+            publishDate = "2024-05-22",
             image = ""
         ), onToDetail = {}
     )

@@ -16,16 +16,21 @@ class AuthScreenViewModel: ViewModel() {
     private var _state = MutableAuthScreenState()
     val state = _state as AuthScreenState
 
+    init {
+        checkCorrectInputs()
+    }
 
     fun updateEmail(text: String){
         if (!text.any { it in ALPH_CYRILLIC }) _state.email = text
+        checkCorrectInputs()
     }
 
     fun updatePassword(text: String){
         _state.password = text
+        checkCorrectInputs()
     }
 
-    fun checkCorrectInputs(){
+    private fun checkCorrectInputs(){
         val isCorrectEmail = Patterns.EMAIL_ADDRESS.matcher(state.email).matches()
         _state.isCorrectInput = state.password.isNotEmpty() && isCorrectEmail
     }

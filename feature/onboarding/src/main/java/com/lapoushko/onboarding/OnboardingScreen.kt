@@ -55,10 +55,19 @@ fun OnboardingScreen(
 
     Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
         Column(verticalArrangement = Arrangement.spacedBy(verticalArrangement)) {
-            Title(textAlign = TextAlign.Center, text = "Тысячи курсов в одном месте", modifier = Modifier.padding(horizontal = horizontalPadding))
+            Title(
+                textAlign = TextAlign.Center,
+                text = "Тысячи курсов в одном месте",
+                modifier = Modifier.padding(horizontal = horizontalPadding)
+            )
             LazyListItems(state.items)
         }
-        NextButton(onClick = onClick, title = "Продолжить", modifier = Modifier.padding(vertical = 32.dp, horizontal = horizontalPadding))
+        NextButton(
+            onClick = onClick,
+            title = "Продолжить",
+            modifier = Modifier.padding(vertical = 32.dp, horizontal = horizontalPadding),
+            isCorrectInput = true
+        )
     }
 }
 
@@ -71,7 +80,8 @@ private fun LazyListItems(list: List<String>) {
     val screenWidthPx = displayMetrics.widthPixels
     val maxLineWidthPx = screenWidthPx + with(density) { 10.dp.toPx() }
 
-    val activeStates = remember { mutableStateListOf<Boolean>().apply { repeat(list.size) { add(false) } } }
+    val activeStates =
+        remember { mutableStateListOf<Boolean>().apply { repeat(list.size) { add(false) } } }
 
     val scrollState = rememberScrollState()
     val contentWidthPx = remember { mutableIntStateOf(0) }
@@ -165,7 +175,10 @@ private fun ItemButton(text: String, onClick: (Boolean) -> Unit, isActive: Boole
             }
             onClick(!isActive)
         },
-        colors = ButtonDefaults.buttonColors(containerColor = if (isActive) Green else LightGray, contentColor = White),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (isActive) Green else LightGray,
+            contentColor = White
+        ),
         modifier = Modifier.graphicsLayer(rotationZ = animatedRotation)
     ) {
         Text(

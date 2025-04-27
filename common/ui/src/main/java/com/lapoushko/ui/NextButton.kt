@@ -11,7 +11,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lapoushko.ui.theme.DarkGray
 import com.lapoushko.ui.theme.Green
-import com.lapoushko.ui.theme.LightGray
 import com.lapoushko.ui.theme.Typography
 import com.lapoushko.ui.theme.White
 

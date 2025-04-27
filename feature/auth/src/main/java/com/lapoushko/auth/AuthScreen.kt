@@ -62,11 +62,11 @@ fun AuthScreen(
             )
             LoginButtons(
                 onClick = {
-                    viewModel.checkCorrectInputs()
                     if (state.isCorrectInput) {
                         onClick()
                     }
-                }
+                },
+                isCorrectInput = state.isCorrectInput
             )
             HorizontalDivider(color = Stroke)
             SocialNetworksButtons(
@@ -109,9 +109,9 @@ private fun Auth(
 }
 
 @Composable
-private fun LoginButtons(onClick: () -> Unit) {
+private fun LoginButtons(onClick: () -> Unit, isCorrectInput: Boolean) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        NextButton(onClick = onClick, title = "Вход")
+        NextButton(onClick = onClick, title = "Вход", isCorrectInput = isCorrectInput)
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -124,7 +124,7 @@ private fun LoginButtons(onClick: () -> Unit) {
                     color = White
                 )
                 Text(
-                    modifier = Modifier.clickable { /*Todo*/ },
+                    modifier = Modifier.clickable { },
                     text = "Регистрация",
                     style = Typography.labelLarge,
                     fontSize = 12.sp,

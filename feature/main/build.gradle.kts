@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":common:ui"))
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(project(":common:extension"))
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)

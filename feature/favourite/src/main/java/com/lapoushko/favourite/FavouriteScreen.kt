@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.lapoushko.extension.toCustomString
+import com.lapoushko.extension.toDate
 import com.lapoushko.feature.screen.CourseItemCard
 import com.lapoushko.ui.theme.Typography
 import com.lapoushko.ui.theme.horizontalPadding
@@ -44,7 +46,9 @@ fun FavouriteScreen(
 
         LazyColumn {
             items(state.initialCourses) { course ->
-                CourseItemCard(course) {
+                CourseItemCard(course.copy(
+                    publishDate = course.publishDate.toDate().toCustomString()
+                )) {
                     onToDetail(it)
                 }
             }
