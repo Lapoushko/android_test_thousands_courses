@@ -68,18 +68,14 @@ private fun LazyListItems(list: List<String>) {
     val config = LocalConfiguration.current
     val displayMetrics = LocalContext.current.resources.displayMetrics
 
-    // Границы ширины строки
     val screenWidthPx = displayMetrics.widthPixels
     val maxLineWidthPx = screenWidthPx + with(density) { 10.dp.toPx() }
 
-    // Состояние активных кнопок
     val activeStates = remember { mutableStateListOf<Boolean>().apply { repeat(list.size) { add(false) } } }
 
-    // Скролл и ширина контента
     val scrollState = rememberScrollState()
     val contentWidthPx = remember { mutableIntStateOf(0) }
 
-    // Центрирование после измерения ширины
     LaunchedEffect(contentWidthPx.intValue) {
         if (contentWidthPx.intValue > 0) {
             with(density) {
@@ -90,7 +86,6 @@ private fun LazyListItems(list: List<String>) {
         }
     }
 
-    // Оценка ширины каждой кнопки
     val itemWidths = remember(list) {
         list.map { text ->
             with(density) {
@@ -102,7 +97,6 @@ private fun LazyListItems(list: List<String>) {
         }
     }
 
-    // Группировка кнопок в ряды с ограничением по ширине
     val buttonRows = remember(itemWidths) {
         val rows = mutableListOf<MutableList<Int>>()
         var currentRow = mutableListOf<Int>()
@@ -124,7 +118,6 @@ private fun LazyListItems(list: List<String>) {
         rows
     }
 
-    // Отображение с горизонтальным скроллом и центрированием контента
     Box(
         modifier = Modifier
             .fillMaxWidth()

@@ -1,15 +1,11 @@
 package com.lapoushko.navigation.screen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -56,7 +52,8 @@ fun BottomBarScreen(
 
     Scaffold(
         modifier = Modifier
-            .fillMaxSize().height(1000.dp),
+            .fillMaxSize()
+            .height(1000.dp),
         bottomBar = {
             if (showBottomBar) {
                 BottomBar(
@@ -95,7 +92,6 @@ fun BottomBar(
                 screen = screen,
                 destination = destination,
                 navController = navController,
-                badges = 0
             )
         }
     }
@@ -114,10 +110,12 @@ private fun RowScope.AddItem(
     screen: ScreenBar,
     destination: NavDestination?,
     navController: NavHostController,
-    badges: Int = 0
 ) {
+    val isDestination = destination?.hierarchy?.any { it.route == screen.route } == true
+    val color = if (isDestination) Green else White
     NavigationBarItem(
-        selected = destination?.hierarchy?.any { it.route == screen.route } == true,
+        modifier = Modifier.padding(top = 12.dp, bottom = 16.dp),
+        selected = isDestination,
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
@@ -125,42 +123,17 @@ private fun RowScope.AddItem(
             }
         },
         icon = {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                BadgedBox(
-                    badge = {
-                        if (badges > 0) {
-                            Badge(
-                                containerColor = Color.Red,
-                                contentColor = Color.White
-                            ) {
-                                Text(text = "$badges", style = Typography.labelMedium)
-                            }
-                        }
-                    }
-                ) {
-                    if (destination?.hierarchy?.any { it.route == screen.route } == true) {
-                        CustomNavIcon(
-                            id = screen.setIcon,
-                            title = screen.title,
-
-                            )
-                    } else {
-                        CustomNavIcon(
-                            id = screen.setIcon,
-                            title = screen.title,
-                            tint = White
-                        )
-                    }
-                }
-            }
+            CustomNavIcon(
+                id = screen.setIcon,
+                title = screen.title,
+                tint = color
+            )
         },
         label = {
             Text(
                 text = screen.title,
                 style = Typography.labelMedium,
-                color = Color.Black
+                color = color
             )
         }
     )

@@ -49,6 +49,9 @@ dependencies {
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:auth"))
     implementation(project(":feature:main"))
+    implementation(project(":feature:favourite"))
+    implementation(project(":feature:profile"))
+    implementation(project(":feature:detail"))
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)

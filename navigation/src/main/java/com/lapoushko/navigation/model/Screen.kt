@@ -13,4 +13,7 @@ sealed class Screen {
 
     @Serializable
     data object Authorization : Screen()
+
+    @Serializable
+    data class Detail(val id: Long): Screen()
 }
