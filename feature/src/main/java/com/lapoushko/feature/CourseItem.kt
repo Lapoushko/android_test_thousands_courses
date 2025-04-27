@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Parcelize
 data class CourseItem(
-    val id : String,
+    val id : Long,
     val title: String,
     val text: String,
     val price: String,

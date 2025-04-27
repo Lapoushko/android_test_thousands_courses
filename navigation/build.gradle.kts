@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:auth"))
+    implementation(project(":feature:main"))
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)

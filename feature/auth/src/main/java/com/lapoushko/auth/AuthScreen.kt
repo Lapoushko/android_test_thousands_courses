@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -100,7 +101,8 @@ private fun Auth(
                 title = "Пароль",
                 placeholder = "Введите пароль",
                 text = password,
-                onValueChanged = { updatePassword(it) }
+                onValueChanged = { updatePassword(it) },
+                keyboardType = KeyboardType.Password
             )
         }
     }
@@ -116,7 +118,7 @@ private fun LoginButtons(onClick: () -> Unit) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Нет аккаунта? ",
+                    text = "Нету аккаунта? ", //правильно "нет", но оставил как в тз
                     style = Typography.labelLarge,
                     fontSize = 12.sp,
                     color = White
