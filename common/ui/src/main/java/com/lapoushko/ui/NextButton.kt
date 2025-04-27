@@ -9,7 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.lapoushko.ui.theme.DarkGray
 import com.lapoushko.ui.theme.Green
+import com.lapoushko.ui.theme.LightGray
 import com.lapoushko.ui.theme.Typography
 import com.lapoushko.ui.theme.White
 
@@ -18,6 +20,7 @@ import com.lapoushko.ui.theme.White
  */
 @Composable
 fun NextButton(
+    isCorrectInput: Boolean,
     onClick: () -> Unit,
     title: String,
     modifier: Modifier = Modifier
@@ -25,9 +28,17 @@ fun NextButton(
     Button(
         onClick = onClick,
         modifier = modifier.fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(containerColor = Green, contentColor = White),
-    ){
-        Text(text = title, style = Typography.labelLarge, modifier = Modifier.padding(vertical = 10.dp))
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (isCorrectInput) Green else DarkGray,
+            contentColor = White
+        ),
+        enabled = isCorrectInput
+    ) {
+        Text(
+            text = title,
+            style = Typography.labelLarge,
+            modifier = Modifier.padding(vertical = 10.dp)
+        )
     }
 }
 
@@ -36,6 +47,7 @@ fun NextButton(
 private fun NextButtonPreview() {
     NextButton(
         onClick = {},
-        title = "Продолжить"
+        title = "Продолжить",
+        isCorrectInput = false
     )
 }
