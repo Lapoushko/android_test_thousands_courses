@@ -1,4 +1,4 @@
-package com.lapoushko.feature
+package com.lapoushko.feature.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
