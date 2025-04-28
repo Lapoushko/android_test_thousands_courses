@@ -3,6 +3,7 @@ package com.lapoushko.android_test_thousands_courses
 import android.app.Application
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
+import com.lapoushko.android_test_thousands_courses.di.dataSourceModule
 import com.lapoushko.android_test_thousands_courses.di.mapperModule
 import com.lapoushko.android_test_thousands_courses.di.repositoryModule
 import com.lapoushko.android_test_thousands_courses.di.serviceModule
@@ -27,6 +28,7 @@ class App : Application() {
                 repositoryModule,
                 mapperModule,
                 serviceModule,
+                dataSourceModule,
             )
         }
     }

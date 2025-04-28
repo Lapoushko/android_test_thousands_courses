@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -58,17 +60,18 @@ fun MainScreen(
     ) {
         CustomSearchBar()
         SortButton(onSort = { viewModel.sort() })
-        when(state.statusLoading){
+        when (state.statusLoading) {
             MainScreenState.StatusLoading.LOADING -> CircularProgressIndicator(color = White)
             MainScreenState.StatusLoading.SUCCESS -> {
                 LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     items(state.initialCourses) { course ->
                         CourseItemCard(
                             course.copy(
                                 publishDate = course.publishDate.toDate().toCustomString()
-                            )
+                            ),
+                            onFavourite = { viewModel.saveOrDeleteCourse(course) }
                         ) {
                             onToDetail(it)
                         }

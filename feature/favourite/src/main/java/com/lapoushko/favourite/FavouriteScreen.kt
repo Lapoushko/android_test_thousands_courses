@@ -46,9 +46,12 @@ fun FavouriteScreen(
 
         LazyColumn {
             items(state.initialCourses) { course ->
-                CourseItemCard(course.copy(
-                    publishDate = course.publishDate.toDate().toCustomString()
-                )) {
+                CourseItemCard(
+                    course.copy(
+                        publishDate = course.publishDate.toDate().toCustomString()
+                    ),
+                    onFavourite = {viewModel.deleteCourse(course)}
+                ) {
                     onToDetail(it)
                 }
             }

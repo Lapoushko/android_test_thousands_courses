@@ -13,6 +13,7 @@ import com.lapoushko.navigation.model.Screen
 import com.lapoushko.navigation.model.ScreenBar
 import com.lapoushko.onboarding.OnboardingScreen
 import com.lapoushko.profile.ProfileScreen
+import org.koin.compose.KoinContext
 
 
 /**
@@ -21,40 +22,42 @@ import com.lapoushko.profile.ProfileScreen
 
 @Composable
 fun BottomNavigationGraph(navController: NavHostController) {
-    NavHost(
-        navController = navController,
-        startDestination = Screen.Onboarding
-    ) {
-        composable<Screen.Onboarding> {
-            OnboardingScreen(
-                onClick = {
-                    navController.navigate(
-                        Screen.Authorization
-                    )
-                }
-            )
-        }
-        composable<Screen.Authorization> {
-            AuthScreen(
-                onClick = {
-                    navController.navigate(
-                        ScreenBar.Main.route
-                    )
-                }
-            )
-        }
-        composable<Screen.Detail> { navBackStackEntry ->
-            val id = navBackStackEntry.toRoute<Screen.Detail>().id
-            DetailScreen(id = id)
-        }
-        composable(route = ScreenBar.Main.route) {
-            MainScreen(onToDetail = { navController.navigate(Screen.Detail(it)) })
-        }
-        composable(route = ScreenBar.Favourite.route) {
-            FavouriteScreen(onToDetail = { navController.navigate(Screen.Detail(it)) })
-        }
-        composable(route = ScreenBar.Profile.route) {
-            ProfileScreen()
+    KoinContext{
+        NavHost(
+            navController = navController,
+            startDestination = Screen.Onboarding
+        ) {
+            composable<Screen.Onboarding> {
+                OnboardingScreen(
+                    onClick = {
+                        navController.navigate(
+                            Screen.Authorization
+                        )
+                    }
+                )
+            }
+            composable<Screen.Authorization> {
+                AuthScreen(
+                    onClick = {
+                        navController.navigate(
+                            ScreenBar.Main.route
+                        )
+                    }
+                )
+            }
+            composable<Screen.Detail> { navBackStackEntry ->
+                val id = navBackStackEntry.toRoute<Screen.Detail>().id
+                DetailScreen(id = id)
+            }
+            composable(route = ScreenBar.Main.route) {
+                MainScreen(onToDetail = { navController.navigate(Screen.Detail(it)) })
+            }
+            composable(route = ScreenBar.Favourite.route) {
+                FavouriteScreen(onToDetail = { navController.navigate(Screen.Detail(it)) })
+            }
+            composable(route = ScreenBar.Profile.route) {
+                ProfileScreen()
+            }
         }
     }
 }

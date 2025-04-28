@@ -12,6 +12,7 @@ import com.lapoushko.feature.mapper.CourseMapper
 import com.lapoushko.feature.model.CourseItem
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 /**
  * @author Lapoushko
@@ -45,6 +46,16 @@ class MainScreenViewModel(
             _state.initialCourses = _state.initialCourses.sortedBy {
                 _state.isSortByDescending = true
                 it.publishDate.toDate()
+            }
+        }
+    }
+
+    fun saveOrDeleteCourse(courseItem: CourseItem){
+        viewModelScope.launch {
+            if (!courseItem.hasLike) {
+                repository.saveCourse(mapper.toDomain(courseItem.copy(hasLike = true)))
+            } else {
+                repository.deleteCourse(courseItem.id)
             }
         }
     }

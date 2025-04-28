@@ -18,6 +18,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,6 +50,7 @@ import com.lapoushko.ui.theme.horizontalPadding
 @Composable
 fun CourseItemCard(
     course: CourseItem,
+    onFavourite: () -> Unit,
     onToDetail: (Long) -> Unit,
 ) {
     Card(
@@ -59,7 +64,7 @@ fun CourseItemCard(
         shape = RoundedCornerShape(16.dp)
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            ImageCard(course = course, onFavourite = {})
+            ImageCard(course = course, onFavourite = { onFavourite() })
             TextCard(course = course)
         }
     }
@@ -70,6 +75,7 @@ private fun ImageCard(
     course: CourseItem,
     onFavourite: () -> Unit
 ) {
+    var isFavourite by remember { mutableStateOf(course.hasLike) }
     Box {
         AsyncImage(
             modifier = Modifier
@@ -82,7 +88,10 @@ private fun ImageCard(
         )
 
         IconButton(
-            onClick = { onFavourite() },
+            onClick = {
+                onFavourite()
+                isFavourite = !isFavourite
+            },
             modifier = Modifier
                 .padding(16.dp)
                 .size(32.dp)
@@ -91,9 +100,11 @@ private fun ImageCard(
                 .align(Alignment.TopEnd),
         ) {
             Icon(
-                painter = painterResource(R.drawable.favourite),
+                painter = if (isFavourite) painterResource(R.drawable.added_favourite) else painterResource(
+                    R.drawable.favourite
+                ),
                 contentDescription = null,
-                tint = White,
+                tint = if (isFavourite) Green else White,
                 modifier = Modifier.size(20.dp)
             )
         }
@@ -206,6 +217,7 @@ private fun CourseItemCardPreview() {
             hasLike = false,
             publishDate = "2024-05-22",
             image = ""
-        ), onToDetail = {}
+        ), onToDetail = {},
+        onFavourite = {}
     )
 }
