@@ -13,6 +13,6 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { OnboardingScreenViewModel() }
     viewModel { AuthScreenViewModel() }
-    viewModel { MainScreenViewModel() }
+    viewModel { MainScreenViewModel(get(), get()) }
     viewModel { FavouriteScreenViewModel() }
 }

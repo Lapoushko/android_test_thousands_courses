@@ -3,6 +3,9 @@ package com.lapoushko.android_test_thousands_courses
 import android.app.Application
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
+import com.lapoushko.android_test_thousands_courses.di.mapperModule
+import com.lapoushko.android_test_thousands_courses.di.repositoryModule
+import com.lapoushko.android_test_thousands_courses.di.serviceModule
 import com.lapoushko.android_test_thousands_courses.di.viewModelModule
 import com.lapoushko.navigation.screen.BottomBarScreen
 import com.lapoushko.ui.theme.Android_test_thousands_coursesTheme
@@ -21,13 +24,9 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 viewModelModule,
-//                repositoryModule,
-//                mapperModule,
-//                serviceModule,
-//                mediaModule,
-//                dataSourceModule,
-//                daoModule,
-//                utilModule
+                repositoryModule,
+                mapperModule,
+                serviceModule,
             )
         }
     }

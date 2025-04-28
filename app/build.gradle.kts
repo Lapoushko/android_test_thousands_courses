@@ -57,6 +57,10 @@ dependencies {
     implementation(project(":feature:auth"))
     implementation(project(":feature:main"))
     implementation(project(":feature:favourite"))
+    implementation(project(":feature"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":data:network"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -72,4 +76,14 @@ dependencies {
 
     //nav
     implementation(libs.androidx.navigation.compose)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+
+    //MoShi
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.retrofit2converter.moshi)
 }

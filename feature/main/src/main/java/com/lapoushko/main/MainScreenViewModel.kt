@@ -4,15 +4,35 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.lapoushko.domain.entity.Course
+import com.lapoushko.domain.repo.CourseRepository
 import com.lapoushko.extension.toDate
+import com.lapoushko.feature.mapper.CourseMapper
 import com.lapoushko.feature.model.CourseItem
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 /**
  * @author Lapoushko
  */
-class MainScreenViewModel : ViewModel() {
+class MainScreenViewModel(
+    private val repository: CourseRepository,
+    private val mapper: CourseMapper
+) : ViewModel() {
     private var _state = MutableMainScreenState()
     val state = _state as MainScreenState
+
+    init {
+        loadCourses()
+    }
+
+    private fun loadCourses(){
+        repository.getCourses().onEach { courses: List<Course> ->
+            _state.initialCourses = courses.map { course -> mapper.toUi(course) }
+            _state.statusLoading = MainScreenState.StatusLoading.SUCCESS
+        }.launchIn(viewModelScope)
+    }
 
     fun sort(){
         if (state.isSortByDescending){
@@ -30,38 +50,18 @@ class MainScreenViewModel : ViewModel() {
     }
 
     private class MutableMainScreenState : MainScreenState {
-        override var initialCourses: List<CourseItem> by mutableStateOf(
-            listOf(
-                CourseItem(
-                    id = 123,
-                    title = "Java-разработчик с нуля",
-                    text = "Освойте backend-разработку и программирование на Java, фреймворки Spring и Maven, работу с базами данных и API. Создайте свой собственный проект, собрав портфолио и став востребованным специалистом для любой IT компании.",
-                    price = "999",
-                    rate = "4.9",
-                    startDate = "2024-05-22",
-                    hasLike = false,
-                    publishDate = "2024-05-22",
-                    image = ""
-                ),
-                CourseItem(
-                    id = 123,
-                    title = "Java-разработчик с нуля",
-                    text = "Освойте backend-разработку и программирование на Java, фреймворки Spring и Maven, работу с базами данных и API. Создайте свой собственный проект, собрав портфолио и став востребованным специалистом для любой IT компании.",
-                    price = "999",
-                    rate = "4.9",
-                    startDate = "2024-06-22",
-                    hasLike = false,
-                    publishDate = "2024-06-22",
-                    image = ""
-                )
-
-            )
-        )
-        override var isSortByDescending: Boolean by mutableStateOf(false)
+        override var initialCourses: List<CourseItem> by mutableStateOf(emptyList())
+        override var isSortByDescending: Boolean by mutableStateOf(true)
+        override var statusLoading: MainScreenState.StatusLoading by mutableStateOf(MainScreenState.StatusLoading.LOADING)
     }
 }
 
 interface MainScreenState {
     val initialCourses: List<CourseItem>
     val isSortByDescending: Boolean
+    val statusLoading: StatusLoading
+    enum class StatusLoading{
+        LOADING,
+        SUCCESS
+    }
 }

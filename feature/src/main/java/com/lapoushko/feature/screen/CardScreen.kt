@@ -76,7 +76,7 @@ private fun ImageCard(
                 .fillMaxWidth()
                 .height(114.dp)
                 .clip(RoundedCornerShape(16.dp)),
-            model = course.image.ifEmpty { "https://masterpiecer-images.s3.yandex.net/5fd531dca6427c7:upscaled" },
+            model = course.image,
             contentScale = ContentScale.Crop,
             contentDescription = "",
         )
