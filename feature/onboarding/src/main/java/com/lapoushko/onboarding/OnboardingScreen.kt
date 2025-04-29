@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -54,7 +55,12 @@ fun OnboardingScreen(
 ) {
     val state = viewModel.state
 
-    Column(modifier = Modifier.fillMaxHeight().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.SpaceBetween) {
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
         Column(verticalArrangement = Arrangement.spacedBy(verticalArrangement)) {
             Title(
                 textAlign = TextAlign.Center,
@@ -64,7 +70,9 @@ fun OnboardingScreen(
             LazyListItems(state.items)
         }
         NextButton(
-            onClick = onClick,
+            onClick = {
+                onClick()
+            },
             title = "Продолжить",
             modifier = Modifier.padding(vertical = 32.dp, horizontal = horizontalPadding),
             isCorrectInput = true

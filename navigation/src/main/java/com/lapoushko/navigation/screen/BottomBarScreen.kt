@@ -117,9 +117,14 @@ private fun RowScope.AddItem(
         modifier = Modifier.padding(top = 12.dp, bottom = 16.dp),
         selected = isDestination,
         onClick = {
-            navController.navigate(screen.route) {
-                popUpTo(navController.graph.findStartDestination().id)
-                launchSingleTop = true
+            if (navController.currentDestination?.route != screen.route) {
+                navController.navigate(screen.route) {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
             }
         },
         icon = {

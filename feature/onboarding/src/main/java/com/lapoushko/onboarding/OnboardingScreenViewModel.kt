@@ -2,12 +2,19 @@ package com.lapoushko.onboarding
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.lapoushko.domain.manager.FirstLaunchManager
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 /**
  * @author Lapoushko
  */
-class OnboardingScreenViewModel: ViewModel() {
+class OnboardingScreenViewModel(): ViewModel() {
     private var _state = MutableOnboardingScreenState()
     val state = _state as OnboardingScreenState
 
