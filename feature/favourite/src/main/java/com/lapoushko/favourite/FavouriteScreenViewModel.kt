@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.lapoushko.domain.repo.CourseRepository
 import com.lapoushko.feature.mapper.CourseMapper
 import com.lapoushko.feature.model.CourseItem
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -28,7 +29,7 @@ class FavouriteScreenViewModel(
     private fun loadCourses() {
         repository.getFavoritesCourses().onEach { courses ->
             _state.initialCourses = courses.map { mapper.toUi(it) }
-        }
+        }.launchIn(viewModelScope)
     }
 
     fun deleteCourse(courseItem: CourseItem) {

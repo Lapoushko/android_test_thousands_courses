@@ -21,7 +21,6 @@ val dataSourceModule = module {
 
 private fun provideRoomDatabase(context: Context): CourseDatabase {
     return Room.databaseBuilder(context, CourseDatabase::class.java, ConstantsDatabase.NAME_DATABASE)
-        .fallbackToDestructiveMigration()
         .build()
 }
 

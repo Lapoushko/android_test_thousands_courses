@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -75,7 +76,7 @@ private fun ImageCard(
     course: CourseItem,
     onFavourite: () -> Unit
 ) {
-    var isFavourite by remember { mutableStateOf(course.hasLike) }
+    var isFavourite by rememberSaveable { mutableStateOf(course.hasLike) }
     Box {
         AsyncImage(
             modifier = Modifier

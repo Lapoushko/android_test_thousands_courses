@@ -24,7 +24,7 @@ class CourseStorageMapperImpl(): CourseStorageMapper{
                 startDate = startDate ?: "",
                 hasLike = hasLike ?: false,
                 publishDate = publishDate ?: "",
-                image = image ?: ""
+                image = image ?: "https://masterpiecer-images.s3.yandex.net/5fd531dca6427c7:upscaled"
             )
         }
     }

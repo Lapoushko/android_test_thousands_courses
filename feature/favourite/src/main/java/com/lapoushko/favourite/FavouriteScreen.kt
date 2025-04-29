@@ -44,7 +44,9 @@ fun FavouriteScreen(
             textAlign = TextAlign.Start, style = Typography.titleSmall,
         )
 
-        LazyColumn {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
             items(state.initialCourses) { course ->
                 CourseItemCard(
                     course.copy(

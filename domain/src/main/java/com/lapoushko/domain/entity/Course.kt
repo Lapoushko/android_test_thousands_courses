@@ -3,7 +3,7 @@ package com.lapoushko.domain.entity
 /**
  * @author Lapoushko
  */
-class Course(
+data class Course(
     val id : Long,
     val title: String,
     val text: String,

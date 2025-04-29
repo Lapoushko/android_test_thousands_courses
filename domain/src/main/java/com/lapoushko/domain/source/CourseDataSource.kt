@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface CourseDataSource {
     fun getCourses(): Flow<List<Course>>
 
-    fun getCourse(id: Long): Flow<Course>
+    suspend fun getCourse(id: Long): Course?
 
     suspend fun saveCourse(course: Course)
 
