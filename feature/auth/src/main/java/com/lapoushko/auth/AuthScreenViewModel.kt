@@ -45,8 +45,8 @@ class AuthScreenViewModel: ViewModel() {
     }
 
     private class MutableAuthScreenState: AuthScreenState{
-        override var email: String by mutableStateOf("text@text.text")
-        override var password: String by mutableStateOf("1")
+        override var email: String by mutableStateOf("")
+        override var password: String by mutableStateOf("")
         override var isCorrectInput: Boolean by mutableStateOf(false)
         override val link: AuthScreenState.Link by mutableStateOf(AuthScreenState.Link.VK)
     }

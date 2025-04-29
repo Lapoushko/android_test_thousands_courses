@@ -1,30 +1,32 @@
 package com.lapoushko.navigation.model
 
 import com.lapoushko.navigation.R
+import kotlinx.serialization.Serializable
 
 /**
  * @author Lapoushko
  */
+@Serializable
 sealed class ScreenBar(
     val route: String,
     val title: String,
     val setIcon: Int,
 ) {
-
+    @Serializable
     data object Main : ScreenBar(
         route = MAIN_ROUTE,
         title = MAIN_TITLE,
         setIcon = MAIN_SET_ICON,
     )
 
-
+    @Serializable
     data object Favourite : ScreenBar(
         route = FAVOURITE_ROUTE,
         title = FAVOURITE_TITLE,
         setIcon = FAVOURITE_SET_ICON,
     )
 
-
+    @Serializable
     data object Profile : ScreenBar(
         route = PROFILE_ROUTE,
         title = PROFILE_TITLE,

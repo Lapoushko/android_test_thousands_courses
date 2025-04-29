@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 /**
  * @author Lapoushko
  */
-class OnboardingScreenViewModel: ViewModel() {
+class OnboardingScreenViewModel(): ViewModel() {
     private var _state = MutableOnboardingScreenState()
     val state = _state as OnboardingScreenState
 

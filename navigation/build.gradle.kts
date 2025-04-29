@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":feature:favourite"))
     implementation(project(":feature:profile"))
     implementation(project(":feature:detail"))
+    implementation(project(":domain"))
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)

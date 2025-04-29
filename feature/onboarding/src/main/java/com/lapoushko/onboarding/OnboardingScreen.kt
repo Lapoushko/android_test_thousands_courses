@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -20,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -53,7 +55,12 @@ fun OnboardingScreen(
 ) {
     val state = viewModel.state
 
-    Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
         Column(verticalArrangement = Arrangement.spacedBy(verticalArrangement)) {
             Title(
                 textAlign = TextAlign.Center,
@@ -63,7 +70,9 @@ fun OnboardingScreen(
             LazyListItems(state.items)
         }
         NextButton(
-            onClick = onClick,
+            onClick = {
+                onClick()
+            },
             title = "Продолжить",
             modifier = Modifier.padding(vertical = 32.dp, horizontal = horizontalPadding),
             isCorrectInput = true

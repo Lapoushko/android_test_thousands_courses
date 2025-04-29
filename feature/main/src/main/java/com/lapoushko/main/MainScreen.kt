@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -57,16 +58,22 @@ fun MainScreen(
     ) {
         CustomSearchBar()
         SortButton(onSort = { viewModel.sort() })
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(state.initialCourses) { course ->
-                CourseItemCard(
-                    course.copy(
-                        publishDate = course.publishDate.toDate().toCustomString()
-                    )
+        when (state.statusLoading) {
+            MainScreenState.StatusLoading.LOADING -> CircularProgressIndicator(color = White)
+            MainScreenState.StatusLoading.SUCCESS -> {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    onToDetail(it)
+                    items(state.initialCourses) { course ->
+                        CourseItemCard(
+                            course.copy(
+                                publishDate = course.publishDate.toDate().toCustomString()
+                            ),
+                            onFavourite = { viewModel.saveOrDeleteCourse(course) }
+                        ) {
+                            onToDetail(it)
+                        }
+                    }
                 }
             }
         }
@@ -111,7 +118,7 @@ private fun CustomSearchBar() {
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
-            shape = RoundedCornerShape(28.dp)
+            shape = RoundedCornerShape(28.dp),
         )
 
         FilterButton(height)

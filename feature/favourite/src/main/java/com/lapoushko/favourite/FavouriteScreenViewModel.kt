@@ -4,31 +4,42 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.lapoushko.domain.repo.CourseRepository
+import com.lapoushko.feature.mapper.CourseMapper
 import com.lapoushko.feature.model.CourseItem
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 /**
  * @author Lapoushko
  */
-class FavouriteScreenViewModel : ViewModel() {
+class FavouriteScreenViewModel(
+    private val repository: CourseRepository,
+    private val mapper: CourseMapper
+) : ViewModel() {
     private var _state = MutableFavouriteScreenState()
     val state = _state as FavouriteScreenState
 
+    init {
+        loadCourses()
+    }
+
+    private fun loadCourses() {
+        repository.getFavoritesCourses().onEach { courses ->
+            _state.initialCourses = courses.map { mapper.toUi(it) }
+        }.launchIn(viewModelScope)
+    }
+
+    fun deleteCourse(courseItem: CourseItem) {
+        viewModelScope.launch {
+            repository.deleteCourse(courseItem.id)
+        }
+    }
+
     private class MutableFavouriteScreenState : FavouriteScreenState {
-        override var initialCourses: List<CourseItem> by mutableStateOf(
-            listOf(
-                CourseItem(
-                    id = 123,
-                    title = "Java-разработчик с нуля",
-                    text = "Освойте backend-разработку и программирование на Java, фреймворки Spring и Maven, работу с базами данных и API. Создайте свой собственный проект, собрав портфолио и став востребованным специалистом для любой IT компании.",
-                    price = "999",
-                    rate = "4.9",
-                    startDate = "2024-05-22",
-                    hasLike = false,
-                    publishDate = "2024-05-22",
-                    image = ""
-                )
-            )
-        )
+        override var initialCourses: List<CourseItem> by mutableStateOf(emptyList())
     }
 }
 
