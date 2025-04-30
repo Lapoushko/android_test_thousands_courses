@@ -1,3 +1,5 @@
+DEMO: https://drive.google.com/file/d/1M-JTWOWF5sMqnt7dozrzsmEob52DWUxX/view?usp=sharing
+
 ТЗ на разработку приложения для курсов
 Содержание
 
